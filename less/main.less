@@ -65,3 +65,21 @@ body {
 
 }
 
+
+table.report {
+    .table();
+    .table-striped();
+    .table-hover();
+
+    tr.error {
+        background-color: @brand-danger
+    }
+    tr.warn {
+        background-color: @brand-warning
+    }
+
+    td.message {
+        white-space: pre;
+        font-family: @font-family-monospace
+    }
+}

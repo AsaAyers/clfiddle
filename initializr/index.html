@@ -35,14 +35,14 @@
 
             <div class="output">
                 <ul id="output-tabs">
-                    <li><a href="#coffeelint">CoffeeLint</a></li>
+                    <li class="active"><a href="#coffeelint">CoffeeLint</a></li>
                     <li><a href="#options">Options</a></li>
                     <li><a href="#tokens">Tokens</a></li>
-                    <li class="active"><a href="#ast">AST</a></li>
+                    <li><a href="#ast">AST</a></li>
                 </ul>
 
                 <div>
-                    <div class="fade coffeelint-tab" id="coffeelint">
+                    <div class="fade in active coffeelint-tab" id="coffeelint">
                         <textarea class="editor">
 # Lint your CoffeeScript!
 
@@ -51,7 +51,7 @@ class Gangster
   wasItAGoodDay : () ->
     yes
                         </textarea>
-                        <div class="results">
+                        <div id="coffeelint-results" class="results">
                         </div>
                     </div>
                     <div class="fade" id="options">
@@ -60,7 +60,7 @@ class Gangster
                     <div class="fade" id="tokens">
                         tokens
                     </div>
-                    <div class="fade in active" id="ast">
+                    <div class="fade" id="ast">
                         AST
                     </div>
                 </div>

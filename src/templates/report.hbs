@@ -1,0 +1,29 @@
+{{#if clean}}
+    Clean!
+{{else}}
+    <table class="report">
+
+        <tr>
+            <th>Rule</th>
+            <th>Level</th>
+            <th>Line Number</th>
+            <th>Message</th>
+        </tr>
+        {{#each errors}}
+            <tr class="{{level}}">
+                <td>
+                    {{rule}}
+                </td>
+                <td>
+                    {{level}}
+                </td>
+                <td>
+                    {{lineNumber}}
+                </td>
+                <td class="message">{{message}}</td>
+            </tr>
+        {{/each}}
+
+    </table>
+{{/if}}
+

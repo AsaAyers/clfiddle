@@ -11,14 +11,15 @@ $('#output-tabs a').click (e) ->
 $editor = $('.editor')
 $ast = $('#ast')
 $tokens = $('#tokens')
+$results = $('#coffeelint-results')
 
-showTokens = (tokens) ->
+showTokens = (code) ->
     template = require './templates/tokens.hbs'
 
     context =
         # Using arrays in Handlebars doesn't seem to work well, so I'm
         # converting each token to an object.
-        tokens: tokens.map (token) ->
+        tokens: CoffeeScript.tokens(code).map (token) ->
             objToken = {}
 
             [ objToken.type, objToken.value, objToken.location] = token
@@ -40,17 +41,32 @@ showAST = (code) ->
 
     $ast.html $('<pre>').text(JSON.stringify(node, undefined, 2))
 
+showLinter = (code) ->
+    context = {}
+    try
+        context.errors = CoffeeLint.lint(code)
+    catch e
+        context.error = e
+
+    if context.errors.length is 0 and not context.error?
+        context.clean = true
+
+    template = require './templates/report.hbs'
+
+    console.log context
+    $results.html template(context)
+
+    if context.errors[0]?.rule is 'coffeescript_error'
+        return false
+
+    return not context.error?
+
 onChange = ->
     code = $editor.val()
 
-    # If there is a syntax error this will exit early.
-    try
-        tokens = CoffeeScript.tokens(code)
-    catch e
-        return
-
-    showTokens(tokens)
-    showAST(code)
+    if showLinter(code)
+        showTokens(code)
+        showAST(code)
 
 $editor.keyup _.throttle(onChange, 500)
 
