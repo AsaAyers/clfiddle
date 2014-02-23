@@ -13,6 +13,18 @@ $ast = $('#ast')
 $tokens = $('#tokens')
 $results = $('#coffeelint-results')
 
+importFromGist = (id, filename = undefined) ->
+    $.get("https://api.github.com/gists/#{id}")
+    .then (data) ->
+        return data.files[filename].content if data.files[filename]
+
+        for name, f of data.files when f.language is 'CoffeeScript'
+            return f.content
+
+    .then (content) ->
+        $editor.val content
+        onChange()
+
 showTokens = (code) ->
     template = require './templates/tokens.hbs'
 
