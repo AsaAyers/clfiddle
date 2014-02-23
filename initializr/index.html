@@ -42,20 +42,24 @@ class Gangster
             </textarea>
 
             <div class="output">
-                <ul id="myTab" class="ouput-tabs">
-                    <li class="active"><a href="#coffeelint">CoffeeLint</a></li>
+                <ul id="output-tabs">
+                    <li><a href="#coffeelint">CoffeeLint</a></li>
                     <li><a href="#options">Options</a></li>
+                    <li class="active"><a href="#tokens">Tokens</a></li>
                     <li><a href="#ast">AST</a></li>
                 </ul>
 
-                <div class="output-tab-content">
-                    <div class="tab-pane fade in active" id="coffeelint">
+                <div>
+                    <div class="fade" id="coffeelint">
                         CoffeeLint
                     </div>
-                    <div class="tab-pane fade" id="options">
+                    <div class="fade" id="options">
                         Options
                     </div>
-                    <div class="tab-pane fade" id="ast">
+                    <div class="fade in active" id="tokens">
+                        tokens
+                    </div>
+                    <div class="fade" id="ast">
                         AST
                     </div>
                 </div>
@@ -63,14 +67,16 @@ class Gangster
 
         </div>
 
-
+      <!--
       <footer>
         <p>&copy; Company 2013</p>
       </footer>
+      -->
     </div> <!-- /container -->        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
 
         <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/coffee-script.js"></script>
         <script src="js/main.js"></script>
 
         <script>

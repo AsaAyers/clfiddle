@@ -28,23 +28,37 @@ body {
 
 .output {
     .make-sm-column(6);
-}
 
-.ouput-tabs {
-    .nav();
-    .nav-tabs();
-}
-
-.output-tab-content {
-    .tab-content();
+    & > ul {
+        .nav();
+        .nav-tabs();
+    }
 
     & > div {
-        .tab-pane();
-        .fade();
-        
-        &:first {
-            .in();
-            .active();
+        .tab-content();
+
+        & > div {
+            .tab-pane();
+
+            // JS needs the fade class, I guess to figure out if `in` needs to
+            // move?
+            // .fade();
+
+            // Moving the `in` class here will allow the content to be seen, but
+            // the transition breaks.
+            /*
+            &.active {
+                .in();
+            }
+            */
         }
     }
 }
+
+.token-table {
+    .table();
+    .table-striped();
+    .table-hover();
+
+}
+

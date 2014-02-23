@@ -1,0 +1,26 @@
+<table class="token-table">
+    <tr>
+        <th>Type</th>
+        <th>Value</th>
+        <th>Location</th>
+        <th>Extra Values</th>
+    </tr>
+    {{#each tokens}}
+    <tr>
+        <td>{{type}}</td>
+        <td><pre>{{value}}</pre></td>
+        <td>
+            <pre>first_column: {{location.first_column}}
+first_line: {{location.first_line}}
+last_column: {{location.last_column}}
+last_line: {{location.last_line}}</pre>
+        </td>
+        <td>
+            {{#if extra}}
+                <pre>{{extra}}</pre>
+            {{/if}}
+        </td>
+    </tr>
+    {{/each}}
+</table>
+

@@ -3,6 +3,7 @@ module.exports =
     options:
         transform: [
             'coffeeify'
+            'browserify-handlebars'
         ]
         debug: true
     colormycraft:

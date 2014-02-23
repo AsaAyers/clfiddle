@@ -5,6 +5,7 @@ module.exports =
             'grunt/**'
             'Gruntfile.coffee'
             'src/**/*.coffee'
+            'src/**/*.hbs'
             'less/**/*.less'
             'initializr/**'
         ]
