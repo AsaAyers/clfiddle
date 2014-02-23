@@ -6,6 +6,7 @@ module.exports = (grunt) ->
     grunt.registerTask 'build', [
         'sync'
         'less'
+        'browserify'
     ]
 
     grunt.registerTask 'default', [

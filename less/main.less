@@ -7,3 +7,44 @@ body {
     padding-bottom: 20px;
 }
 
+
+.code-container {
+    .make-row();
+}
+
+.editor {
+    .make-sm-column(6);
+
+    background-color:#111;
+    min-height:250px;
+    color:#339933;
+    font-family:monospace;
+    font-size:16px;
+    font-weight:normal;
+    resize:none;
+    outline:none;
+    border:none;
+}
+
+.output {
+    .make-sm-column(6);
+}
+
+.ouput-tabs {
+    .nav();
+    .nav-tabs();
+}
+
+.output-tab-content {
+    .tab-content();
+
+    & > div {
+        .tab-pane();
+        .fade();
+        
+        &:first {
+            .in();
+            .active();
+        }
+    }
+}
