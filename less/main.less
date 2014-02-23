@@ -1,20 +1,19 @@
 
 @import '../bower_components/bootstrap/less/bootstrap.less';
 @import '../bower_components/bootstrap/less/theme.less';
+
+@import (less) '../bower_components/codemirror/lib/codemirror.css';
+@import (less) '../bower_components/codemirror/theme/lesser-dark.css';
+@import (less) '../bower_components/codemirror/addon/lint/lint.css';
             
 body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-
-.coffeelint-tab {
-    .make-row();
-
-
-    .results {
-        .make-sm-column(6);
-    }
+#coffeelint {
+    // Need this to make the lint gutter show up.
+    margin-left: 1%;
 }
 
 .editor {

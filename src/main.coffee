@@ -1,7 +1,12 @@
 
 # I'm making this global in case people want to poke at it from the console.
-window.CoffeeLint = require '../node_modules/coffeelint/lib/coffeelint.js'
+window.coffeelint = require '../node_modules/coffeelint/lib/coffeelint.js'
 _ = require '../bower_components/lodash/dist/lodash.js'
+
+# This doesn't create a module, so it will create `window.CodeMirror`
+require '../bower_components/codemirror/lib/codemirror.js'
+require '../bower_components/codemirror/addon/lint/lint.js'
+require '../bower_components/codemirror/addon/lint/coffeescript-lint.js'
 
 $('#output-tabs a').click (e) ->
     e.preventDefault()
@@ -11,7 +16,6 @@ $('#output-tabs a').click (e) ->
 $editor = $('.editor')
 $ast = $('#ast')
 $tokens = $('#tokens')
-$results = $('#coffeelint-results')
 
 importFromGist = (id, filename = undefined) ->
     $.get("https://api.github.com/gists/#{id}")
@@ -53,33 +57,32 @@ showAST = (code) ->
 
     $ast.html $('<pre>').text(JSON.stringify(node, undefined, 2))
 
-showLinter = (code) ->
-    context = {}
-    try
-        context.errors = CoffeeLint.lint(code)
-    catch e
-        context.error = e
-
-    if context.errors.length is 0 and not context.error?
-        context.clean = true
-
-    template = require './templates/report.hbs'
-
-    console.log context
-    $results.html template(context)
-
-    if context.errors[0]?.rule is 'coffeescript_error'
-        return false
-
-    return not context.error?
-
 onChange = ->
     code = $editor.val()
 
-    if showLinter(code)
-        showTokens(code)
-        showAST(code)
+    try
+        CoffeeScript.tokens(code)
+    catch e
+        return
 
-$editor.keyup _.throttle(onChange, 500)
+    showTokens(code)
+    showAST(code)
+
+onChange = _.throttle(onChange, 500)
+
+$editor = $editor
+codeEditor = CodeMirror.fromTextArea $editor.get(0),
+    mode: "javascript"
+    lineNumbers: true
+    gutters: ["CodeMirror-lint-markers"]
+    showTrailingSpace: false
+    lint: CodeMirror.lint.coffeescript
+
+codeEditor.on 'change', (cm) ->
+    cm.save()
+    onChange()
 
 onChange()
+
+
+
