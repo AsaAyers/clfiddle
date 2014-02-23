@@ -35,6 +35,11 @@ showTokens = (tokens) ->
     html = template(context)
     $tokens.html html
 
+showAST = (code) ->
+    node = CoffeeScript.nodes(code)
+
+    $ast.html $('<pre>').text(JSON.stringify(node, undefined, 2))
+
 onChange = ->
     code = $editor.val()
 
@@ -45,6 +50,7 @@ onChange = ->
         return
 
     showTokens(tokens)
+    showAST(code)
 
 $editor.keyup _.throttle(onChange, 500)
 
