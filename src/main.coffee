@@ -13,11 +13,9 @@ require './handlebars_helpers.coffee'
 showTokens = require './show_tokens.coffee'
 require './manage_options.coffee'
 
-$('#output-tabs a').click (e) ->
+$('.nav-tabs a').click (e) ->
     e.preventDefault()
     $(this).tab('show')
-
-
 
 $editor = $('.editor')
 
@@ -63,7 +61,7 @@ codeEditor.on 'change', (cm) ->
     cm.save()
     onChange()
 
-$('#output-tabs a[href="#coffeelint"]').on 'show.bs.tab', ->
+$('a[href="#coffeelint"]').on 'show.bs.tab', ->
     # Force the editor to update and re-lint the file
     codeEditor.setValue codeEditor.getValue()
 

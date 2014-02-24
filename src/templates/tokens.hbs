@@ -1,14 +1,18 @@
 <table class="token-table">
     <tr>
         <th>Type</th>
-        <th>Value</th>
+        <th>JSON.stringify(value)</th>
         <th>Location</th>
         <th>Extra Values</th>
     </tr>
     {{#each tokens}}
     <tr>
         <td>{{type}}</td>
-        <td><pre>{{value}}</pre></td>
+        <td>
+            {{#if value}}
+                <pre class="token-value">{{value}}</pre>
+            {{/if}}
+        </td>
         <td>
             <pre>first_column: {{location.first_column}}
 first_line: {{location.first_line}}

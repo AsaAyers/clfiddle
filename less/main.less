@@ -31,11 +31,6 @@ body {
 }
 
 .output {
-    & > ul {
-        .nav();
-        .nav-tabs();
-    }
-
     & > div {
         .tab-content();
 
@@ -90,4 +85,11 @@ table.report {
 .CodeMirror-scroll {
   overflow-y: hidden;
   overflow-x: auto;
+}
+
+.token-value {
+    max-width: 500px;
+    overflow-x: auto;
+    word-wrap: normal;
+    white-space: pre;
 }

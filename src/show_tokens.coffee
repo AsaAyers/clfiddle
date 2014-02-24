@@ -10,6 +10,8 @@ module.exports = (code) ->
             objToken = {}
 
             [ objToken.type, objToken.value, objToken.location] = token
+
+            objToken.value = JSON.stringify(objToken.value)
             # Tokens are arrays that should have 3 values, but sometimes may
             # also have extra properties attached.
             for key, value of token when key not in ['0', '1', '2']
