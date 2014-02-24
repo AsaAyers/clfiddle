@@ -1,0 +1,24 @@
+{
+  "name": "clfiddle",
+  "version": "0.0.0",
+  "authors": [
+    "Asa Ayers"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "codemirror": "~3.22.0",
+    "coffee-script": "~1.7.1",
+    "jsonlint": "~1.6.0",
+    "lodash": "~2.4.1",
+    "modernizr": "~2.7.1"
+  }
+}

@@ -1,0 +1,25 @@
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Config</th>
+        <th>Description</th>
+    </tr>
+    {{#each rules}}
+        <tr>
+            <td>{{@key}}</td>
+            <td>
+                <select name="{{@key}}">
+                    <option>ignore</option>
+                    <option {{selected level "warn"}}>warn</option>
+                    <option {{selected level "error"}}>error</option>
+                </select>
+                <br/>
+                {{#if config}}
+                    <textarea name="{{@key}}">{{config}}</textarea>
+                {{/if}}
+            </td>
+            <td>{{{description}}}</td>
+        </tr>
+
+    {{/each}}
+</table>

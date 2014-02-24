@@ -5,17 +5,21 @@ _ = require '../bower_components/lodash/dist/lodash.js'
 
 # This doesn't create a module, so it will create `window.CodeMirror`
 require '../bower_components/codemirror/lib/codemirror.js'
+
 require '../bower_components/codemirror/addon/lint/lint.js'
 require '../bower_components/codemirror/addon/lint/coffeescript-lint.js'
+
+require './handlebars_helpers.coffee'
+showTokens = require './show_tokens.coffee'
+require './manage_options.coffee'
 
 $('#output-tabs a').click (e) ->
     e.preventDefault()
     $(this).tab('show')
 
 
+
 $editor = $('.editor')
-$ast = $('#ast')
-$tokens = $('#tokens')
 
 importFromGist = (id, filename = undefined) ->
     $.get("https://api.github.com/gists/#{id}")
@@ -29,41 +33,18 @@ importFromGist = (id, filename = undefined) ->
         $editor.val content
         onChange()
 
-showTokens = (code) ->
-    template = require './templates/tokens.hbs'
 
-    context =
-        # Using arrays in Handlebars doesn't seem to work well, so I'm
-        # converting each token to an object.
-        tokens: CoffeeScript.tokens(code).map (token) ->
-            objToken = {}
-
-            [ objToken.type, objToken.value, objToken.location] = token
-            # Tokens are arrays that should have 3 values, but sometimes may
-            # also have extra properties attached.
-            for key, value of token when key not in ['0', '1', '2']
-                objToken.extra ?= {}
-                objToken.extra[key] = value
-
-            if objToken.extra
-                objToken.extra = JSON.stringify(objToken.extra, undefined, 2)
-            objToken
-
-    html = template(context)
-    $tokens.html html
-
+$ast = $('#ast')
 showAST = (code) ->
-    node = CoffeeScript.nodes(code)
+    try
+        node = CoffeeScript.nodes(code)
+    catch
+        return
 
     $ast.html $('<pre>').text(JSON.stringify(node, undefined, 2))
 
 onChange = ->
     code = $editor.val()
-
-    try
-        CoffeeScript.tokens(code)
-    catch e
-        return
 
     showTokens(code)
     showAST(code)
@@ -82,7 +63,11 @@ codeEditor.on 'change', (cm) ->
     cm.save()
     onChange()
 
+$('#output-tabs a[href="#coffeelint"]').on 'show.bs.tab', ->
+    # Force the editor to update and re-lint the file
+    codeEditor.setValue codeEditor.getValue()
+
+window.codeEditor = codeEditor
+
 onChange()
-
-
 
