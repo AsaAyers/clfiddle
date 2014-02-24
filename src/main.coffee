@@ -50,12 +50,25 @@ onChange = ->
 onChange = _.throttle(onChange, 500)
 
 $editor = $editor
+$ts = $("#lint-timestamp")
 codeEditor = CodeMirror.fromTextArea $editor.get(0),
     mode: "javascript"
     lineNumbers: true
     gutters: ["CodeMirror-lint-markers"]
     showTrailingSpace: false
-    lint: CodeMirror.lint.coffeescript
+    lint:
+        getAnnotations: CodeMirror.lint.coffeescript
+        onUpdateLinting: (annotationsNotSorted, annotations, cm) ->
+            console.log Object.keys(annotations).length
+            if Object.keys(annotations).length is 0
+                state = 'Your code is lint free!'
+            else
+                state = 'Your code has lint.'
+
+            # I found my self asking "Did it work?" when I pasted code in and
+            # it found nothing. The timestamp should help with verifying that
+            # it's actually running.
+            $ts.text "#{new Date()}: #{state}"
 
 codeEditor.on 'change', (cm) ->
     cm.save()
