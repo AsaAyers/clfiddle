@@ -24,5 +24,19 @@
   },
   "devDependencies": {
     "grunt-gh-pages": "^0.9.1"
+  },
+  "coffeelintConfig": {
+    "indentation": {
+      "value": 4
+    },
+    "undefined_variables": {
+        "environments": {
+            "browser": true,
+            "jQuery": true
+        },
+        "globals": [
+            "require"
+        ]
+    }
   }
 }
